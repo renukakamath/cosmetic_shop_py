@@ -1,0 +1,69 @@
+
+<body onload="printDiv()">
+  <div id="div_print" >
+      <center>
+          <link rel="stylesheet" href="static/assets/css/style-starter.css">
+          <font style="font-family:times new roman">
+          <h1 style="color: #3ccadd;"><b>Glossier.<b></h1>
+              <p>
+                  Glossier cosmetics,
+                  near kochi,
+                  kerala 682017 <br><br>
+                        <strong>Phone:</strong> +917897624325<br> 
+                        <strong>Email:</strong> glossier@mail.com<br> 
+                      </p> 
+          <h1 style="padding-top: 30px;font-size: 60px;">SALES REPORT</h1><br>`
+<!-- <h1>View Sales</h1> -->
+<table class="table" style="width: 1000px;color: black;font-style: italic;border-collapse: collapse;font-family: monospace;font-size: 22px" border="5">
+		<tr>
+  <th>sino</th>
+          <th>Customer</th>
+        <th>category</th>
+        <th>SubCategory</th>
+        <th>Color</th>
+        <th>Brand</th>
+
+        
+        <th>Name</th>
+        <th>Description</th>
+        <th> Image</th>
+        <th> price</th>
+        <th>quantity</th>
+        <th>Status</th>
+           
+        
+        
+		</tr>
+  {% for row in data['r']%}
+<tr>
+        
+   
+          <td>{{loop.index}}</td>
+        <td>{{row['customer_fname']}}</td>
+        <td>{{row['category_name']}}</td>
+        <td>{{row['subcategory_name'] }}</td>
+        <td>{{row['color_name']}}</td>
+        <td>{{row['brand_name']}}</td>
+        <td>{{row['product_name']}}</td>
+        <td>{{row['product_description'] }}</td>
+        <td><img src="/{{row['product_image'] }}" height="100" width="100"></td>
+        <td>{{row['total_price']}}</td>
+        
+        <td>{{row['quantity'] }}</td>
+        <td>{{row['order_status']}}</td>
+      
+     
+    </tr>
+     {% endfor %}
+	</table>
+</center>
+<script> 
+  function printDiv() { 
+    var divContents = document.getElementById("div_print").innerHTML; 
+    var a = window.open('', '', 'height=500, width=500'); 
+    a.document.write(divContents); 
+    a.document.close(); 
+    a.print(); 
+  } 
+  </script>
+</body>

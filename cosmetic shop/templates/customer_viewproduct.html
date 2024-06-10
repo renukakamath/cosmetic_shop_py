@@ -1,0 +1,100 @@
+{% include 'customerheader.html'%}
+
+ <!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 146px">
+    <div class="hero-container">
+
+</center>
+
+</div></section>
+
+<!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="section-title">
+         <center>
+         	<h1 style="color: #d28330;margin-top: -150px">PRODUCTS</h1>
+	<form method="post">
+
+
+        <label style="font-size: 12px;color: white;float: left;">Available Categories</label>
+        <div style="width: 100%;min-height: 50px;background: rgba(255,255,255,.2);display: flex;justify-content: center;align-items: center;border-radius: 4px;gap:5px">
+          {% for row in data['cat']%}
+
+        <a style="background: #ffb727;color: white;font-size: 10px;padding: 5px 10px;border-radius: 3px" href="?action=search&key={{row['category_id']}}">{{row['category_name']}}</a><br>
+
+
+        {% endfor %}
+          
+        </div>
+    
+			<table  class="teble" style="margin-top: 10px">
+				<tr style="display: flex !important;">
+					<td><input type="text" placeholder="Search here..."  name="product" class="form-control"></td>
+					<td><input type="submit" class="btn btn-success" name="search" style="margin-left: 6px;"></td>
+				</tr>
+
+
+        
+			</table>
+
+	</form>
+	</form>
+</center>
+
+        </div>
+
+      
+        <div class="row portfolio-container" style="height: 1000px;">
+{% for row in data['productsearch']%}
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+
+          		
+            <div class="portfolio-wrap">
+              <figure>
+                <img src="/{{row['product_image']}}"   class="img-fluid" alt="" style="width: 400px;height: 400px;" />
+              </figure>
+
+              <div class="portfolio-info">
+               
+                <h4>Sub Category: {{row['subcategory_name'] }}</h4>
+                <h4>Color: {{row['color_name']}}</h4>
+                <h4>Brand: {{row['brand_name']}}</h4>
+                <h4>Product: {{row['product_name']}}</h4>
+
+                   <h4>Expiry Date: {{row['product_exp']}}</h4>
+
+
+    	<p>Description: {{row['product_description'] }}</p>
+                 <p>Rate: {{row['rate'] }}</p>
+
+                 {% if row['stock'] %}
+                 {% if row['stock'] | int > 0%}
+    		<td><a class="btn btn-success" href="customer_addtocart?pid={{row['product_id']}}&pname={{row['product_name']}}&pdis={{row['product_description']}}&pimg={{row['product_image']}}&pamo={{row['rate']}}&stock={{row['stock']}}">Add To Cart</a></td>
+
+          <td><a class="btn btn-success" href="customer_addtocarts?pid={{row['product_id']}}&pname={{row['product_name']}}&pdis={{row['product_description']}}&pimg={{row['product_image']}}&pamo={{row['rate']}}&stock={{row['stock']}}">Buy Now</a></td>
+
+
+
+
+
+    		{% elif row['stock'] | int <= 0%}
+
+   
+            <td><a class="btn btn-success" href="#">Out  Of  Stock</a></td> 
+             {% endif %}
+             {% endif %}
+         
+              </div>
+            </div>
+           
+          </div>
+ {% endfor %}
+         
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+{% include 'footer.html'%}

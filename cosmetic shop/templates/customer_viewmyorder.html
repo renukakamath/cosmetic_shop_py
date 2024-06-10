@@ -1,0 +1,54 @@
+{% include 'customerheader.html'%}
+
+ <!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 3000px;">
+    <div class="hero-container">
+<center>
+	<h1>MY ORDERS</h1>
+	<form>
+		<table class="table" style="width: 700px;color: white">
+			<tr>
+				<th>sino</th>
+				
+				<th>SubCategory</th>
+				<th>Color</th>
+				<th>Brand</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th> Image</th>
+				<th> price</th>
+				<th>quantity</th>
+				<th>Status</th>
+				<th>Bill</th>
+				
+				
+				
+			</tr>
+			{% for row in data['myorder']%}
+    	<tr>
+    		<td>{{loop.index}}</td>
+    		
+    		<td>{{row['subcategory_name'] }}</td>
+    		<td>{{row['color_name']}}</td>
+    		<td>{{row['brand_name']}}</td>
+    		<td>{{row['product_name']}}</td>
+    		<td>{{row['product_description'] }}</td>
+    		<td><img src="/{{row['product_image'] }}" height="100" width="100"></td>
+    		<td>{{row['total_price']}}</td>
+    		<td>{{row['quantity'] }}</td>
+    		<td>{{row['order_status']}}</td>
+			<td><a style="width: 150px" class="btn btn-info" href="bill1?apid={{row['order_master_id']}}&pid={{row['customer_id']}}"><b>Print Bill</b></a></td>
+    	
+    		
+   
+    		
+    	</tr>
+    	{% endfor %}
+
+    
+		</table>
+	</form>
+</center>
+
+</div></section>
+{% include 'footer.html'%}

@@ -1,0 +1,114 @@
+{% include 'adminheader.html'%}
+
+<style type="text/css">
+	
+.styled-table {
+    border-collapse: collapse;
+   
+}
+
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+  
+}
+
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    color: white
+}
+
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+    width: 500px;
+}
+
+</style>
+
+ <!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 3000px">
+    <div class="hero-container">
+
+<br><br><br><br><br><br>
+<center>
+	<h1 style="color: white">view Orders</h1>
+	<form>
+			<table class="" style="width: 500px;color: white">
+    <thead>
+			<tr  >
+				<th style="background: #009879">sino</th>
+				
+				<th style="background: #009879">SubCategory</th>
+				<th style="background: #009879">customer name</th>
+				<th style="background: #009879">Color</th>
+				<th style="background: #009879">Brand</th>
+				<th style="background: #009879">Name</th>
+				<th style="background: #009879">Description</th>
+				<th style="background: #009879">order date</th>
+				<th style="background: #009879"> Image</th>
+				<th style="background: #009879"> price</th>
+				<th style="background: #009879">quantity</th>
+				<th style="background: #009879">Status</th>
+				<th style="background: #009879">Payment</th>
+				<th style="background: #009879">Courier</th>
+				
+				
+			</tr>
+		</thead>
+			{% for row in data['bookingview']%}
+    	<tr>
+
+    		 <tbody>
+    		<td>{{loop.index}}</td>
+    		
+    		<td>{{row['subcategory_name'] }}</td>
+			<td>{{row['customer_fname'] }}</td>
+    		<td>{{row['color_name']}}</td>
+    		<td>{{row['brand_name']}}</td>
+    		<td>{{row['product_name']}}</td>
+    		<td>{{row['product_description'] }}</td>
+			<td>{{row['date'] }}</td>
+    		<td><img src="/{{row['product_image'] }}" height="100" width="100"></td>
+    		<td>{{row['total_price']}}</td>
+    		
+    		<td>{{row['quantity'] }}</td>
+    		<td>{{row['order_status']}}</td>
+    		
+    		<td><a class="btn btn-success" href="admin_viewpayment?oid={{row['order_master_id']}}">View Payment</a></td>
+			
+			
+			{% if row['order_status']=="Paid"%}
+			<td><a class="btn btn-success" href="admin_assign?oid={{row['order_master_id']}}">ASSIGN COURIER</a></td>
+
+			{% endif %}
+    		
+   
+    		
+    	</tr>
+    	{% endfor %}
+    </tbody>
+   
+		</table>
+	</form>
+</center>
+
+</tr></table></form></center></div></section>
+{% include 'footer.html'%}

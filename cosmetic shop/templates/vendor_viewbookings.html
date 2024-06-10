@@ -1,0 +1,103 @@
+{% include 'vendorheader.html'%}
+
+<style type="text/css">
+
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 200px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+        
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+        color: white
+    }
+    
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+    
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+    
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
+    
+    </style>
+    
+     <!-- ======= Hero Section ======= -->
+      <section id="hero" style="height: 2500px;">
+        <div class="hero-container">
+    
+    <br><br><br><br><br><br>
+    <center>
+        
+        <h1 style="color: white">view Products</h1>
+      
+        <form>
+                <table class="styled-table">
+        <thead>
+        <tr>
+                <th>sino</th>
+                 
+                <th>Name</th>
+                <th>Description</th>
+                <th>vendor</th>
+                <th>product Image</th>
+                <!-- <th>profit %</th> -->
+                <th>Selling Price</th>
+                <th>cost price</th>
+                <th>quantity</th>
+                <th>Status</th>
+                    
+            </tr>
+
+        </thead>
+            {% for row in data['purchaseview']%}
+        <tr>
+            <tbody>
+
+            <td>{{loop.index}}</td>
+            
+            <td>{{row['product_name']}}</td>
+            <td>{{row['product_description'] }}</td>
+            <td>{{row['vendor_id'] }}</td>
+            <td><img src="/{{row['product_image'] }}" height="100" width="100"></td>
+            <!-- <td>{{row['pro_per']}}</td> -->
+            <td>{{row['selling_price']}}</td>
+            <td>{{row['cost_price'] }}</td>
+            <td>{{row['quantity'] }}</td>
+            <th>{{row['pc_status']}}</th>
+
+            {% if row['status']=="pending"%}
+            <td><a class="btn btn-success" href="?action=accept&omid={{row['purchase_master_id']}}">Accept</a></td>
+
+            {% endif %}
+        
+            {% endfor %}            
+        </tr>
+
+    </tbody>
+		</table>
+    
+	</form>
+</center>
+
+</tr></table></form></center></div></section>
+{% include 'footer.html'%}

@@ -1,0 +1,119 @@
+{% include 'staffheader.html'%}
+
+
+<style type="text/css">
+	
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    color: white
+}
+
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+</style>
+
+ <!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 700px;">
+    <div class="hero-container">
+
+<br><br><br><br><br><br>
+<center>
+	<h1 style="color: white;font-family:Arial, Helvetica, sans-serif">view Customer</h1>
+
+	<a href="cusreport" class="btn btn-success">print</a>
+	<form>
+			<table class="styled-table">
+				
+    <thead>
+			<tr>
+				<th>sLno</th>
+				<th>E-Mail</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>House Name</th>
+				<th>Street</th>
+				<th>District</th>
+				<th>State</th>
+				<th>Pincode</th>
+				<th>Dob</th>
+				<th>Gender</th>
+				<th>Phone</th>
+		        <th>status</th>
+				
+				
+			</tr>
+		</thead>
+			{% for row in data['customerview']%}
+			 <tbody>
+    	<tr>
+    		<td>{{loop.index}}</td>
+			<td>{{row['username']}}</td>
+    		<td>{{row['customer_fname']}}</td>
+    		<td>{{row['customer_lname'] }}</td>
+    		<td>{{row['customer_houser_name']}}</td>
+    		<td>{{row['customer_street']}}</td>
+    		<td>{{row['customer_dist']}}</td>
+    		<td>{{row['customer_state'] }}</td>
+    		<td>{{row['customer_pincode']}}</td>
+    		<td>{{row['customer_dob']}}</td>
+    		<td>{{row['customer_gender']}}</td>
+    		<td>{{row['customer_phone']}}</td>
+
+
+    		{% if row['status']=="1"%}
+    	<td><a class="btn btn-danger" href="?action=reject&lid={{row['username']}}">InActive</a></td>
+    		{%elif row['status']=="0"%}
+	<td><a class="btn btn-success" href="?action=accept&lid={{row['username']}}">Active</a></td>
+
+    		{% endif %}
+    						
+    		
+    		
+    	
+      
+    		
+    	</tr>
+    	{% endfor %}
+
+    </tbody>
+   
+		</table>
+	</form>
+</center>
+</div></section>
+{% include 'footer.html'%}

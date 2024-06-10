@@ -1,0 +1,68 @@
+<body onload="printDiv()">
+    <div id="div_print" >
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <center>
+            <link href="/static/assets/css/style.css" rel="stylesheet">
+            <font style="font-family:times new roman">
+            <h1 style="color: #3ccadd;"><b>Glossier<b></h1>
+                <p>
+                    Glossier cosmetics,
+                    near kochi,
+                    kerala 682017 <br><br>
+                          <strong>Phone:</strong> +917897624325<br> 
+                          <strong>Email:</strong> glossier@mail.com<br> 
+                        </p> 
+            <h1 style="padding-top: 30px;font-size: 40px;color:black;">CUSTOMER REPORT</h1><br>
+            <!-- <h1>View Sales</h1> -->
+<table border=1 class="table table-secondary table-striped " style="width: 1000px;color: black;background:white;opacity: 0.85;">
+    <tr align="left">
+        <TH>FIRST NAME</TH>
+        <TH>LAST NAME</TH>
+        <th>DOB</th>
+        <th>GENDER</th>
+        <th>HOUSENAME</th>
+        <th>DISTRICT</th>
+        <th>PIN</th>
+        <th>PHONE</th>
+        
+                
+                
+            </tr>
+            
+            {% for row in data['custview']%}
+            <tr>
+                <td>{{row['customer_fname']}}</td>
+                <td>{{row['customer_lname']}}</td>
+                <td>{{row['customer_houser_name']}}</td>
+                <td>{{row['customer_street']}}</td>
+                <td>{{row['customer_dist']}}</td>
+                <td>{{row['customer_pincode']}}</td>
+                <td>{{row['customer_gender']}}</td>
+                <td>{{row['customer_phone']}}</td>
+                    </tr>
+                    {% endfor %}
+
+</table>
+
+</div>
+
+
+
+
+
+
+<script> 
+    function printDiv() { 
+        print()
+    }
+   
+</script>

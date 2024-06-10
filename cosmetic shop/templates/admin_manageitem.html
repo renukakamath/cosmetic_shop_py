@@ -1,0 +1,431 @@
+{% include 'adminheader.html'%}
+<style type="text/css">
+	
+	html {
+  height: 100%;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.login-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 4px
+}
+
+.login-box a:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.login-box a span {
+  position: absolute;
+  display: block;
+}
+
+.login-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.login-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.login-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.login-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    color: white
+}
+
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #0f0f0f;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+</style>
+
+
+
+
+
+ <!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 800px">
+    <div class="hero-container">
+<center>
+<h1>Manage Product</h1>
+<form method="post" enctype="multipart/form-data">
+	{% if data['productupdate']%}
+
+	<table class="table" style="width:500px;color: white">
+
+
+	
+		<tr>
+			<th>SubCategory</th>
+			<td><select name="subcategory" class="form-control">
+				<option value="{{data['productupdate'][0]['subcategory_id'] }}">{{data['productupdate'][0]['subcategory_name'] }}</option>
+
+				<option>Select</option>
+
+				{% for row in data['subcategorydrop']%}
+				
+					<option value="{{row['subcategory_id']}}">{{row['subcategory_name']}}</option>
+			    {% endfor %}
+			</select></td>
+		</tr>
+
+		<tr>
+			<th>Color</th>
+			<td><select name="color" class="form-control">
+				<option value="{{data['productupdate'][0]['color_id'] }}">{{data['productupdate'][0]['color_name'] }}</option>
+
+				<option>Select</option>
+
+				{% for row in data['colordrop']%}
+				
+					<option value="{{row['color_id']}}">{{row['color_name']}}</option>
+			   {% endfor %}
+			</select></td>
+		</tr>
+
+			<tr>
+			<th>Brand</th>
+			<td><select name="brand" class="form-control">
+				
+<option value="{{data['productupdate'][0]['brand_id'] }}">{{data['productupdate'][0]['brand_name'] }}</option>
+				<option>Select</option>
+
+				{%for row in data['branddrop']%}
+				
+					<option value="{{row['brand_id']}}">{{row['brand_name']}}</option>
+			     {% endfor %}
+			</select></td>
+		</tr>
+		
+		
+		<tr>
+			<th>Name</th>
+			<td><input type="text" required="" class="form-control" value="{{data['productupdate'][0]['product_name']}}" name="fname"></td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td><textarea name="dis" required="" class="form-control">{{data['productupdate'][0]['product_description']}}</textarea></td>
+		</tr>
+		<tr>
+			<th>product Image</th>
+			<th><img src="/{{data['productupdate'][0]['product_image'] }}" width="50" height="50" alt=""></th>
+		</tr>
+		<tr>
+			<th></th>
+			<td><input type="file"  class="form-control"  name="imgg"></td>
+		</tr>
+		<tr>
+			<th>profit %</th>
+			<td><input type="number" required="" class="form-control" value="{{data['productupdate'][0]['pro_per']}}" id="p_per"  name="pro"></td>
+		</tr>
+		<tr>
+			<th>Expiry date </th>
+			<td><input type="date" required="" class="form-control" value="{{data['productupdate'][0]['product_exp']}}" name="exp"></td>
+		</tr>
+		
+
+		<td align="center" colspan="2"><input type="submit" name="update"  align="center" value="submit" class="btn btn-success"></td>
+	</table>
+{% else %}
+	<table class="table" style="width:500px;color: white">
+
+		
+		<tr>
+			<th>SubCategory</th>
+			<td><select name="subcategory" class="form-control">
+				
+				<option>Select</option>
+				{% for row in data['subcategorydrop']%}
+				
+					<option value="{{row['subcategory_id'] }}">{{row['subcategory_name'] }}</option>
+				{% endfor %}
+			</select></td>
+		</tr>
+		<tr>
+			<th>Color</th>
+			<td><select name="color" class="form-control">
+				
+
+				<option>Select</option>
+
+				{% for row in data['colordrop']%}
+				
+					<option value="{{row['color_id']}}">{{row['color_name']}}</option>
+			{% endfor %}
+			</select></td>
+		</tr>
+
+		<tr>
+			<th>Brand</th>
+			<td><select name="brand" class="form-control">
+				
+
+				<option>Select</option>
+
+				{% for row in data['branddrop']%}
+				
+					<option value="{{row['brand_id']}}">{{row['brand_name']}}</option>
+			{% endfor %}
+			</select></td>
+		</tr>
+		
+		
+		<tr>
+			<th>Name</th>
+			<td><input type="text" required="" class="form-control" name="fname"></td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td><textarea name="dis" required="" class="form-control"></textarea></td>
+		</tr>
+		<tr>
+			<th>product Image</th>
+			<td><input type="file" required="" class="form-control" name="imgg"></td>
+		</tr>
+		<tr>
+			<th>profit %</th>
+			<td><input type="number" required="" class="form-control"   name="pro"></td>
+		</tr>
+		<tr>
+			<th>Expiry date</th>
+			<td><input type="date" min="{{data['today']}}" required="" class="form-control" name="exp"></td>
+		</tr>
+		
+		<td align="center" colspan="2"><input type="submit" name="product" value="submit" class="btn btn-success"></td>
+	</table>
+{% endif %}
+</form>
+</center>
+</div></section>
+<center>
+	<h1 style="font-family:Arial, Helvetica, sans-serif">view Product</h1>
+	<form>
+		<table class="styled-table">
+			<thead>
+			<tr>
+				<th>sino</th>
+				
+				<th>SubCategory</th>
+				<th>Color</th>
+				<th>Brand</th>
+
+				
+				<th>Name</th>
+				<th>Description</th>
+				<th>product Image</th>
+				<th>profit %</th>
+				<th>product expiry</th>
+				<th>Stock</th>
+				<th>status</th>
+				<th>update</th>
+				
+			</tr>
+		</thead>
+			{% for row in data['productview']%}
+			<tbody>
+    	<tr>
+    		<td>{{loop.index}}</td>
+    		
+    		<td>{{row['subcategory_name'] }}</td>
+    		<td>{{row['color_name']}}</td>
+    		<td>{{row['brand_name']}}</td>
+    		<td>{{row['product_name']}}</td>
+    		<td>{{row['product_description'] }}</td>
+    		<td><img src="/{{row['product_image'] }}" height="100" width="100"></td>
+			<td>{{row['pro_per']}}</td>
+			<td>{{row['product_exp']}}</td>
+    		
+    		<td>{{row['stock'] }}</td>
+    		
+    	{% if row['product_status']=="1"%}
+              
+              	<td><a class="btn btn-danger" href="?action=notavailable&pid={{row['product_id']}}">Not Available</a></td>
+         {% elif row['product_status']=="0"%}
+
+         	<td><a class="btn btn-success" href="?action=available&pid={{row['product_id']}}"> Available</a></td>
+       {% endif %}
+
+    		 	<td><a class="btn btn-success" href="?action=update&pid={{row['product_id']}}">update</a></td>
+    		
+    	</tr>
+    	{% endfor %}
+	</tbody>
+		</table>
+	</form>
+</center>
+{% include 'footer.html'%}

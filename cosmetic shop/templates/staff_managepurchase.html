@@ -1,0 +1,319 @@
+{% include 'staffheader.html'%}
+<style type="text/css">
+	
+	html {
+  height: 100%;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.login-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 4px
+}
+
+.login-box a:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.login-box a span {
+  position: absolute;
+  display: block;
+}
+
+.login-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.login-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.login-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.login-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    color: white
+}
+
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #0f0f0f;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+</style>
+ <!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 800px">
+    <div class="hero-container">
+<script type="text/javascript">
+	function TextOnTextChange()
+	{
+		var x =document.getElementById("p_amount").value;
+		var y =document.getElementById("p_qnty").value;
+		document.getElementById("t_amount").value = x * y;
+	}
+
+</script> 
+<center>
+<h1>Manage purchase</h1>
+<form method="post" enctype="multipart/form-data">
+
+	<table class="table" style="width:500px;color: white">
+<tr>
+			<th>Vendor</th>
+			<td><select name="ven" class="form-control" required="">
+				<option>Select</option>
+
+				
+				{% for row in data['vendordrop']%}
+                  	<option value="{{row['vendor_id']}}">{{row['vendor_name'] }}</option>
+                 {% endfor %}
+			</select></td>
+		</tr>
+		<tr>
+			<th>product</th>
+			<td><select name="pid" class="form-control" required="">
+				<option>Select</option>
+
+			
+				{% for row in data['productdrop']%}
+                  	<option value="{{row['product_id']}}">{{row['product_name'] }}</option>
+                 {% endfor %}
+			</select></td>
+		</tr>
+	
+	
+		
+		
+			<th>cost price</th>
+			<td><input type="number" required="" class="form-control"  id="p_amount" name="cost_price"></td>
+		</tr>
+		<tr>
+			<th>profit %</th>
+			<td><input type="number" required="" class="form-control"  id="p_per"  name="pro"></td>
+		</tr>
+
+		
+		<tr>
+			<th>quantity</th>
+			<td><input type="number" required="" class="form-control"  id="p_qnty" onchange="TextOnTextChange()" name="quantity"></td>
+		</tr>
+		<tr>
+			<th>Total</th>
+			<td><input type="number" required="" readonly class="form-control" id="t_amount" name="total"></td>
+		</tr>
+		
+		<td align="center" colspan="2"><input type="submit" name="purchase" value="submit" class="btn btn-success"></td>
+	</table>
+
+</form>
+</center>
+</div></section>
+<center>
+	<h1>view purchase</h1>
+	<form>
+		<table class="styled-table">
+			<thead>
+			<tr>
+				<th>slno</th>
+				<th>Selling Price</th>
+				<th>cost price</th>
+				<th>total</th>
+				<th>quantity</th>
+				<th>Status</th>
+				
+			</tr>
+		</thead>
+			{% for row in data['purchaseview']%}
+			<tbody>
+    	<tr>
+    		<td>{{loop.index}}</td>
+    		<td>{{row['selling_price']}}</td>
+    		<td>{{row['cost_price'] }}</td>
+			<td>{{row['total'] }}</td>
+    		<td>{{row['quantity'] }}</td>
+    		<td>{{row['status']}}</td>	
+    	</tr>
+    	{% endfor %}
+
+    			{% if data['purchaseview'] %}
+    			<td align="center" colspan="8"><a class=" btn btn-success" href="?action=conform&pid={{data['purchaseview'][0]['purchase_master_id']}}">Confirm Purchase</a></td>
+
+    			{%  endif %}
+			</tbody>
+ 
+		</table>
+	</form>
+</center>
+{% include 'footer.html'%}

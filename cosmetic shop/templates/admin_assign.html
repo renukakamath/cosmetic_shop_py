@@ -1,0 +1,29 @@
+
+{% include 'adminheader.html'%}
+
+
+
+ <!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 800px">
+    <div class="hero-container">
+<center>
+<h1>ASSIGN COURIER</h1>
+<form method="post" enctype="multipart/form-data">
+	<table class="table" style="width:500px;color: white">
+
+
+		<tr>
+			<th>Courier agent</th>
+			<td><select name="cou" class="form-control" required="">
+				<option>Select </option>
+				{%for i in data['cou']%}
+				
+                  	<option value="{{i['courier_id']}}">{{i['courier_name']}}</option>
+                 {% endfor %}
+			</select></td>
+		</tr>
+		<tr>
+			
+		<td align="center" colspan="2"><input type="submit" name="update" value="submit" class="btn btn-success"></td>
+	</table>
+	</form></center></div>

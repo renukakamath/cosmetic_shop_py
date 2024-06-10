@@ -1,0 +1,43 @@
+{% include 'customerheader.html'%}
+
+
+ <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+
+<center>
+<h1>Make Payment</h1>
+<form method="post">
+
+	<table class="table" style="width:500px;color: white">
+		<tr>
+			<th>Card Number</th>
+			<td><select name="card" class="form-control">
+				<option>Select</option>
+				{% for row in data['carddrop']%}
+				<option value="{{row['card_id']}}">{{row['card_no']}}</option>
+				{% endfor %}
+			</select></td>
+
+			<td><a class="btn btn-success" href="customer_addcard">Add card</a></td>
+		</tr>
+		
+		<tr>
+			<th>C V V</th>
+			<td><input type="password" required="" pattern="[0-9]{3}" maxlength="3" class="form-control" name="cvv"></td>
+		</tr>
+	<tr>
+		<th>Amount</th>
+		<td><input type="text" class="form-control" value="{{data['amt']}}" name="amo"></td>
+	</tr>
+		
+		<tr>
+		<td align="center" colspan="2"><input type="submit" name="payment" value="submit" class="btn btn-success"></td>
+		</tr>
+	</table>
+
+</form>
+</center>
+
+</div></section>
+{% include 'footer.html'%}

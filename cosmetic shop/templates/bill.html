@@ -1,0 +1,99 @@
+  <head>
+
+    <script>
+      function displayDateTime() {
+        var today = new Date();
+        var date = today.toDateString();
+        var time = today.toLocaleTimeString();
+        document.getElementById("datetime").innerHTML = date + " " + time;
+      }
+    </script>
+  </head>
+      <body onload="printDiv(); displayDateTime();">
+      <div id="div_print" >
+          <center>
+            <link href="/static/assets/css/style.css" rel="stylesheet">
+              <font style="font-family:times new roman">
+              <h1 style="color: #d28330;"><b>GLOSSIER.<b></h1>
+                  <p>
+                      Glossier Cosmetics Pvt Limited ,
+                      near Ashoka Nagar,
+                      Kochi 682017 <br><br>
+                            <strong>Phone:</strong> +98762563450<br> 
+                            <strong>Email:</strong> glossier@mail.com<br> 
+                          </p> 
+              <h1 style="padding-top: 30px;font-size: 60px;">INVOICE</h1><br><br><br>
+              <!-- <h1>View Sales</h1> -->
+  <!-- <table border=1 class="table table-secondary table-striped " style="width: 1000px;color: black;background:white;opacity: 0.85;"> -->
+      {% for row in data['book']%}
+      <tr>
+        <th>Bill No:</th>
+        <td><span id="bill-number"></span></td>
+      </tr><br>
+      
+      <!-- <tr>
+          <th>Customer NAME:</th>
+          <TD>{{row['customer_fname']}}</TD><br>
+      </tr>
+      <tr>
+          <th>PHONE NUMBER:</th>
+          <TD>{{row['customer_phone']}}</TD>
+      </tr><br> -->
+      
+      <tr>
+        <th> BILL DATE AND TIME: </th>
+        <TD><span id="datetime"></span></TD>
+      </tr> 
+  <!-- </table> -->
+      {%endfor%}
+      <table border=1 class="table table-secondary table-striped " style="width: 1000px;color: black;background:white;opacity: 0.85;">
+  
+  
+        <script>
+          var billNumber = Math.floor(Math.random() * 1000000) + 1;
+          document.getElementById("bill-number").innerHTML = billNumber;
+        </script>
+  
+  
+  <script> 
+      function printDiv() { 
+        var divContents = document.getElementById("div_print").innerHTML; 
+        var a = window.open('', '', 'height=500, width=500'); 
+        a.document.write(divContents); 
+        a.document.close(); 
+        a.print(); 
+      } 
+    </script>
+      <TH>Product name</TH>
+      <th>Quantity</th>
+      <th>Total Price</th>
+      
+                  
+                  
+              </tr>
+              
+          
+  
+      {% for row in data['book']%}
+    <tr>
+      <td>{{row['product_name']}}</td>
+      <td>{{row['quantity']}}</td>
+      <td>{{row['total_price']}}</td>
+              </tr>
+              {% endfor %}
+      </table></font></center></div>
+  
+  <script> 
+      function printDiv() { 
+        var divContents = document.getElementById("div_print").innerHTML; 
+        var a = window.open('', '', 'height=500, width=500'); 
+        a.document.write(divContents); 
+        a.document.close(); 
+        a.print(); 
+      } 
+    </script>
+  
+    <p style="padding-left: 1000px;color: black;font-family:times new roman"><b>Authorised Signature</b></p>
+              <img style="padding-left: 1000px;" src="static/sign.png" height="100">
+              </body>
+              

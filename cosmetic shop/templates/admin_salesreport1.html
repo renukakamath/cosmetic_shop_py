@@ -1,0 +1,172 @@
+<style>
+body{margin-top:20px;
+    background:#eee;
+    }
+    
+    .invoice {
+        padding: 30px;
+    }
+    
+    .invoice h2 {
+        margin-top: 0px;
+        line-height: 0.8em;
+    }
+    
+    .invoice .small {
+        font-weight: 300;
+    }
+    
+    .invoice hr {
+        margin-top: 10px;
+        border-color: #ddd;
+    }
+    
+    .invoice .table tr.line {
+        border-bottom: 1px solid #ccc;
+    }
+    
+    .invoice .table td {
+        border: none;
+    }
+    
+    .invoice .identity {
+        margin-top: 10px;
+        font-size: 1.1em;
+        font-weight: 300;
+    }
+    
+    .invoice .identity strong {
+        font-weight: 600;
+    }
+    
+    
+    .grid {
+        position: relative;
+        width: 100%;
+        background: #fff;
+        color: #666666;
+        border-radius: 2px;
+        margin-bottom: 25px;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<body onload="printDiv()">
+    <div id="div_print" >
+<div class="container">
+<div class="row">
+<!-- BEGIN INVOICE -->
+<div class="col-xs-12">
+<div class="grid invoice">
+<div class="grid-body">
+<div class="invoice-title">
+<div class="row">
+    <div class="col-xs-12">
+        <img src="http://vergo-kertas.herokuapp.com/assets/img/logo.png" alt="" height="35">
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <h2>GLOSSIER<br>
+        <!-- <span class="small">order #1082</span></h2> -->
+    </div>
+</div>
+</div>
+<hr>
+<div class="row">
+<div class="col-xs-6">
+    <address>
+        <strong>Glossier cosmetics,
+            near kochi,
+                  kerala 682017
+        </strong><br>
+        
+        <abbr title="Phone">Phone:</abbr>  +917897624325
+        <abbr title="Phone">Email:</abbr>  glossier@mail.com
+    </address>
+</div>
+<!-- <div class="col-xs-6 text-right">
+    <address>
+        <strong>Shipped To:</strong><br>
+        Elaine Hernandez<br>
+        P. Sherman 42,<br>
+        Wallaby Way, Sidney<br>
+        <abbr title="Phone">P:</abbr> (123) 345-6789
+    </address>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-6">
+    <address>
+        <strong>Payment Method:</strong><br>
+        Visa ending **** 1234<br>
+        h.elaine@gmail.com<br>
+    </address>
+</div> -->
+<!-- <div class="col-xs-6 text-right">
+    <address>
+        <strong>Order Date:</strong><br>
+        17/06/14
+    </address>
+</div> -->
+</div>
+<div class="row">
+<div class="col-md-12">
+    <h3>SALES REPORT</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr class="line">
+                <td><strong>slno</strong></td>
+                <td class="text-center"><strong>Customer</strong></td>
+                <td class="text-center"><strong>category</strong></td>
+                <td class="text-center"><strong>SubCategory</strong></td>
+                <td class="text-center"><strong>Color</strong></td>
+                <td class="text-center"><strong>Brand</strong></td>
+                <td class="text-center"><strong>Name</strong></td>
+                <td class="text-center"><strong>Description</strong></td>
+                <td class="text-center"><strong>Image</strong></td>
+                <td class="text-center"><strong>price</strong></td>
+                <td class="text-center"><strong>qty</strong></td>
+                <td class="text-center"><strong>status</strong></td>
+            
+            </tr>
+        </thead>
+<tbody>
+            {% for row in data['r']%}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td><strong>{{row['customer_fname']}}</strong></td>
+                <td class="text-center">{{row['category_name']}}</td>
+                <td class="text-center">{{row['subcategory_name'] }}</td>
+                <td class="text-center">{{row['color_name']}}</td>
+                <td><strong>{{row['brand_name']}}</strong></td>
+                <td class="text-center">{{row['product_name']}}</td>
+                <td class="text-center">{{row['product_description'] }}</td>
+                <td class="text-center"><img src="/{{row['product_image'] }}" height="100" width="100"></td>
+    
+                <td class="text-center">{{row['total_price']}}</td>
+                <td class="text-center">{{row['quantity'] }}</td>
+                <td class="text-right">{{row['order_status']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>									
+</div>
+
+</div>
+</div>
+</div>
+<!-- END INVOICE -->
+</div>
+</div>
+<script> 
+    function printDiv() { 
+      var divContents = document.getElementById("div_print").innerHTML; 
+      var a = window.open('', '', 'height=500, width=500'); 
+      a.document.write(divContents); 
+      a.document.close(); 
+      a.print(); 
+    } 
+    </script>
+</body>

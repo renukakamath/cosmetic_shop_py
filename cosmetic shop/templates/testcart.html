@@ -1,0 +1,217 @@
+{% include 'customer_header.html' %}
+<!-- 
+$cust_id=$_SESSION['cust_id'];
+
+ $qq="SELECT *,COUNT(`childcart_id`) AS cc FROM `tbl_mastcart` INNER JOIN `tbl_childcart` USING(`mastcart_id`) WHERE `cust_id`='$cust_id' AND `cart_status`='Pending'";
+$res=select($qq);
+$isAvailable = true;
+if(isset($_GET['remove_item'])){
+    extract($_GET);
+    $qnty=$quantity;
+    $prc=$price;
+    $total=$qnty*$prc;
+    $qu="UPDATE `tbl_mastcart` SET `tot_amount`=`tot_amount`-'$total' WHERE `mastcart_id`='$remove_item'";
+    update($qu);
+    $qd="DELETE FROM `tbl_childcart` WHERE `item_id`='$item_id' AND `mastcart_id`='$remove_item'";
+    delete($qd);
+     $qo="SELECT * FROM `tbl_mastcart` WHERE `mastcart_id`='$remove_item' and tot_amount='0'";
+    $rt=select($qo);
+    if(sizeof($rt)>0){
+         $qx="DELETE FROM `tbl_mastcart` WHERE `mastcart_id`='$remove_item'";
+        delete($qx);
+    }
+    return redirect("customer_view_cart.php");
+
+}
+
+if(isset($_GET['minus'])){
+    extract($_GET);
+    $qm="UPDATE `tbl_childcart` SET `quantity`=`quantity`-'1' WHERE `childcart_id`='$childcart_id'";
+    update($qm);
+    $qm1="UPDATE `tbl_mastcart` SET `tot_amount`=`tot_amount`-'$price' WHERE `mastcart_id`='$mastcart_id'";
+    update($qm1);
+    return redirect("customer_view_cart.php");
+}
+
+if(isset($_GET['add_qty'])){
+    extract($_GET);
+
+    
+    $qc="SELECT * FROM `tbl_childcart` WHERE `childcart_id`='$childcart_id'";
+    $rc=select($qc);
+    $tt=$rc[0]['quantity']+1;
+
+    if($stock<$tt){
+        alert("Cart Quantity Must be Less Than Stock.");
+    }
+    else{
+        $qm="UPDATE `tbl_childcart` SET `quantity`=`quantity`+'1' WHERE `childcart_id`='$childcart_id'";
+        update($qm);
+        $qm1="UPDATE `tbl_mastcart` SET `tot_amount`=`tot_amount`+'$price' WHERE `mastcart_id`='$mastcart_id'";
+        update($qm1);
+
+    }
+    
+    return redirect("customer_view_cart.php");
+}
+
+?>
+ -->
+<!-- 
+ <script>
+
+  function ChangeQc(){
+    alert("&&&&&&&&&&")
+
+    var qc= document.getElementsByClassName("qc")
+    var stock= document.getElementsByClassName("stock")
+    
+
+    alert(qc[0].value);
+
+
+   
+  }
+  
+ </script> -->
+
+<!-- hero slider Start -->
+    <div class="banner-wrap" style="height: 300px">
+        <div class="banner-slider">
+            <!-- hero slide start -->
+            <div class="banner-slide bg1">
+                <div class="container">
+                    <div class="hero-content">
+                        
+                    </div>
+                </div>
+                <div class="hero-overlay"></div>
+            </div>
+            <!-- hero slide end -->
+        </div>
+    </div>
+    <!-- hero slider end -->
+
+    <body onload="ChangeQc()">
+
+     <!-- home page service grids -->
+    <section class="home-services py-3" id="services">
+        <div class="container py-md-4 py-2">
+            <h3 class="title-style text-center mb-lg-5 mb-4">My <span>Cart</span></h3>
+            <div class="row justify-content-center">
+               
+           {% if data['res'] %}
+                  {% if data['rese'][0]['oc'] != 0 %}
+
+
+                  <div class="col-lg-8 col-md-8">
+          
+                      {% for row in data['res'] %}
+                 
+
+                    <div class="box-wrap" style="margin-bottom: 14px">
+                        <div class="icon">
+                            <!-- <i class="fas fa-user-tie"></i> -->
+                        </div>
+                                <img style="width: 120px" src="/{{ row['img1'] }}">
+                                <h4 class="number">{{ row['quantity'] }} </h4>
+                                <h4><a href="#url">{{ row['brand_name'] }} {{ row['item_name'] }} </a></h4>
+                                <h6 style="margin-bottom: 8px">Price: Rs. {{ row['price'] }}</h6>
+                                <input type="hidden" name="" id="" class="stock" value="{{ row['stock'] }}">
+                                {% if row['stock'] <  row['quantity'] %}
+                                   <h6>Status: <span style="color:red">Cart Quantity Must be Less Than Stock({{ row['stock'] }} left).</span></h6> 
+                              {% else %}
+                                    <h6>Status: <span style="color:blue">In-stock.</span></h6> 
+                                {% endif %}
+
+                                <br>
+                               <div class="row">
+                                  
+                                  {% if row['quantity'] > 1 %}
+                                    <a href="?action=minus&item_id={{ row['item_id'] }}&order_details_id={{ row['order_details_id'] }}&price={{ row['price'] }}&order_master_id={{ row['order_master_id'] }}&quantity={{ row['quantity'] }}&total_price={{ row['total_price'] }}" class="btn btn-primary btn-sm mi" style="width: 50px;margin-right: 6px;" id="mi">-</a>
+                                  {% endif %}
+                                    <input type="number" id="qc" min="1" max="{{ row['stock'] }}" title="Maximum Order Quantity : {{ row['stock'] }}"  readonly class="form-control qc" style="width: 59px;" name="" value="{{ row['quantity'] }}">
+                                  {% if row['quantity'] < row['stock'] %}
+                                    <a href="?action=add_qty&item_id={{ row['item_id'] }}&order_details_id={{ row['order_details_id'] }}&price={{ row['price'] }}&order_master_id={{ row['order_master_id'] }}&stock={{ row['stock'] }}&quantity={{ row['quantity'] }}&total_price={{ row['total_price'] }}" class="btn btn-primary btn-sm ad" style="width: 50px;margin-left: 6px;" id="ad">+</a>
+                                  {% endif %}
+                                  </div>
+
+                                        
+                                
+                                <p><a href="?action=remove_item&order_master_id={{ row['order_master_id'] }}&order_details_id={{ row['order_details_id'] }}&item_id={{ row['item_id'] }}&quantity={{ row['quantity'] }}&price={{ row['price'] }}&total_price={{ row['total_price'] }}" class="read">Remove</a></p>
+                        <!-- <a href="services.html" class="read">Read more</a> -->
+                    </div>
+                
+
+                
+
+                 {% endfor %}
+
+
+               </div>
+                 <div class="col-lg-4 col-md-4">
+                    <div class="box-wrap">
+                        <div class="icon">
+                            <!-- <i class="fas fa-user-tie"></i> -->
+                        </div>
+                        <h4 class="number">{% if data['rese'][0]['oc'] > 0 %} {{ data['res'][0]['cc'] }} {% endif %}</h4>
+                        <h3><a href="#url">Order Summary</a></h3>
+                        <br>
+                        <p>Total Amount: Rs. {{ data['res'][0]['total_amount'] }}</p>
+                        <br>
+
+                        {% if data['res'][0]['stock'] == 0 %}
+                      
+
+                             <p>Remove Items that are Out of Stock.</p>
+
+                    {% else %}
+                       
+                        {% if data['outoff'] == "outoff" %}
+                          <td>Sorry</td>
+
+                          {% else %}
+                        
+                        <a href="customer_payment?omid={{data['res'][0]['order_master_id']}}&total={{data['res'][0]['total_amount']}}" class="btn btn-style">Order</a>
+                        {% endif %}
+                  {% endif %}
+                           <!-- <a href="cust_payment.php?masterid=<?php echo $row['mastcart_id']?>" class="btn btn-style">Order</a> -->
+                    </div>
+                </div>
+               
+                {% endif %}
+{% else %}
+
+        <div class="col-lg-12 col-md-12">
+         
+                <div class="box-wrap my-4">
+                    <center>
+                    <div class="icon">
+                        <!-- <i class="fas fa-user-tie"></i> -->
+                    </div>
+                            
+                           
+                           <h3>Oops. Your Cart is Empty.</h3>
+                           </center> 
+                          
+                </div>
+            
+
+           </div>
+
+
+{% endif %}
+
+            
+            </div>
+        </div>
+    </section>
+    <!-- //home page service grids -->
+
+
+      
+    </body>
+
+
+
+  {% include 'footer.html' %}
